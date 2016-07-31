@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConvolutionalLayer.cs" />
+    <Compile Include="DropoutLayer.cs" />
     <Compile Include="FullyConnectedLayer.cs" />
     <Compile Include="InputLayer1D.cs" />
     <Compile Include="InputLayer2D.cs" />

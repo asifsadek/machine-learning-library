@@ -9,7 +9,10 @@ namespace Machine_Learning {
     public class WeightSet {
 
         // HACKY FOR NOW
-        public const double LAMBDA = 0.0001F;
+        public const double LAMBDA = 0.000001;
+        public const double L2_REGULARIZATION = 0.8;
+        public const double L1_REGULARIZATION = 1 - L2_REGULARIZATION;
+
 
         public static Random rand = new Random();
 
@@ -41,8 +44,12 @@ namespace Machine_Learning {
         }
 
         public void update (Neuron[] prev, double error, double learningRate) {
-            for (int i = 0; i < size; i++)
-                val[i] -= learningRate * (prev[i].activated * error + LAMBDA * val[i]);
+            for (int i = 0; i < size; i++) {
+                double errorGradient = prev[i].activated * error;
+                double l2Gradient = val[i] * L2_REGULARIZATION;
+                double l1Gradient = (val[i] > 0 ? 1 : -1) * L1_REGULARIZATION;
+                val[i] -= learningRate * (errorGradient + LAMBDA * (l1Gradient + l2Gradient));
+            }
             bias -= error * learningRate;
         }
 

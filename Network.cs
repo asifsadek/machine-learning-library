@@ -44,7 +44,10 @@ namespace Machine_Learning {
             for (int i = 0; i < layers.Count; i++) {
                 if (i == 0)
                     ((InputLayer1D)layers[i]).forwardPropagate(input);
-                layers[i].forwardPropagate();
+                if (layers[i] is DropoutLayer)
+                    ((DropoutLayer)layers[i]).forwardPropagateTest();
+                else
+                    layers[i].forwardPropagate();
             }
             return maxIndex(layers.Last().neurons);
         }
@@ -53,7 +56,10 @@ namespace Machine_Learning {
             for (int i = 0; i < layers.Count; i++) {
                 if (i == 0)
                     ((InputLayer2D)layers[i]).forwardPropagate(input);
-                layers[i].forwardPropagate();
+                if (layers[i] is DropoutLayer)
+                    ((DropoutLayer)layers[i]).forwardPropagateTest();
+                else
+                    layers[i].forwardPropagate();
             }
             return maxIndex(layers.Last().neurons);
         }
