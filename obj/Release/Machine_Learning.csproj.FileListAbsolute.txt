@@ -1,0 +1,4 @@
+C:\Users\Jeffrey\Documents\Visual Studio 2015\Projects\Neural_Network\Machine_Learning - Copy\bin\Release\Machine_Learning.dll
+C:\Users\Jeffrey\Documents\Visual Studio 2015\Projects\Neural_Network\Machine_Learning - Copy\bin\Release\Machine_Learning.pdb
+C:\Users\Jeffrey\Documents\Visual Studio 2015\Projects\Neural_Network\Machine_Learning - Copy\obj\Release\Machine_Learning.dll
+C:\Users\Jeffrey\Documents\Visual Studio 2015\Projects\Neural_Network\Machine_Learning - Copy\obj\Release\Machine_Learning.pdb
