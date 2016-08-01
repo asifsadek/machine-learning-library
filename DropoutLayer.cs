@@ -18,8 +18,7 @@ namespace Machine_Learning {
 
         public DropoutLayer (StreamReader reader, Layer prev) {
             string[] data = reader.ReadLine().Split();
-            this.size = int.Parse(data[0]);
-            this.prob = double.Parse(data[1]);
+            this.prob = double.Parse(data[0]);
 
             BindTo(ref prev);
         }
@@ -28,6 +27,7 @@ namespace Machine_Learning {
             prevLayer = layer;
 
             this.neurons = new Neuron[prevLayer.size];
+            this.size = prevLayer.size;
 
             for (int i = 0; i < size; i++) {
                 neurons[i] = new Neuron(1, this.type);
@@ -36,9 +36,12 @@ namespace Machine_Learning {
         }
 
         public override void forwardPropagate () {
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < size; i++) {
                 if (rand.NextDouble() < prob)
                     neurons[i].val = neurons[i].activated = neurons[i].prev[0].activated;
+                else
+                    neurons[i].val = neurons[i].activated = 0;
+            }
         }
 
         public void forwardPropagateTest () {
@@ -48,14 +51,17 @@ namespace Machine_Learning {
 
         public override void backPropagate (double learningRate) {
             for (int i = 0; i < size; i++) {
-                neurons[i].prev[0].error = neurons[i].error;
+                if (neurons[i].val == 0)
+                    neurons[i].prev[0].error = 0;
+                else
+                    neurons[i].prev[0].error = neurons[i].error;
                 neurons[i].error = 0;
             }
         }
 
         public override String ToString () {
             StringBuilder sb = new StringBuilder();
-            sb.Append(String.Format("{0}\n{1} {2}", "Machine_Learning.OutputLayer", size, prob));
+            sb.Append(String.Format("{0}\n{1}", "Machine_Learning.DropoutLayer", prob));
             return sb.ToString();
         }
     }
