@@ -82,7 +82,7 @@ namespace Machine_Learning.Neural_Network {
 
         public override String ToString () {
             StringBuilder sb = new StringBuilder();
-            sb.Append(String.Format("{0}\n{1} {2} {3} {4}", "Machine_Learning.ConvolutionalLayer", depth, kernelHeight, kernelWidth, type));
+            sb.Append(String.Format("{0}\n{1} {2} {3} {4}", this.GetType().FullName, depth, kernelHeight, kernelWidth, type));
             for (int i = 0; i < depth; i++) {
                 sb.Append("\n" + sharedWeights[i].bias);
                 for (int j = 0; j < sharedWeights[i].val.GetLength(0); j++)

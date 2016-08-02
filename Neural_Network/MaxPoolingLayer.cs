@@ -69,7 +69,7 @@ namespace Machine_Learning.Neural_Network {
 
         public override String ToString () {
             StringBuilder sb = new StringBuilder();
-            sb.Append(String.Format("{0}\n{1} {2}", "Machine_Learning.MaxPoolingLayer", kernelHeight, kernelWidth));
+            sb.Append(String.Format("{0}\n{1} {2}", this.GetType().FullName, kernelHeight, kernelWidth));
             return sb.ToString();
         }
     }

@@ -56,7 +56,7 @@ namespace Machine_Learning.Neural_Network {
 
         public override String ToString () {
             StringBuilder sb = new StringBuilder();
-            sb.Append(String.Format("{0}\n{1} {2}", "Machine_Learning.FullyConnectedLayer", size, type));
+            sb.Append(String.Format("{0}\n{1} {2}", this.GetType().FullName, size, type));
             for (int i = 0; i < size; i++) {
                 sb.Append("\n" + neurons[i].weights.bias);
                 for (int j = 0; j < neurons[i].weights.val.GetLength(0); j++)

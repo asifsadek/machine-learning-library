@@ -53,7 +53,7 @@ namespace Machine_Learning.Neural_Network {
 
         public override String ToString () {
             StringBuilder sb = new StringBuilder();
-            sb.Append(String.Format("{0}\n{1}", "Machine_Learning.InputLayer1D", size));
+            sb.Append(String.Format("{0}\n{1}", this.GetType().FullName, size));
             return sb.ToString();
         }
     }

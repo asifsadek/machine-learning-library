@@ -45,8 +45,8 @@ namespace Machine_Learning.Neural_Network {
             for (int i = 0; i < layers.Count; i++) {
                 if (i == 0)
                     ((InputLayer1D)layers[i]).forwardPropagate(input);
-                if (layers[i] is DropoutLayer)
-                    ((DropoutLayer)layers[i]).forwardPropagateTest();
+                if (layers[i] is DropoutLayer1D)
+                    ((DropoutLayer1D)layers[i]).forwardPropagateTest();
                 else
                     layers[i].forwardPropagate();
             }
@@ -57,8 +57,8 @@ namespace Machine_Learning.Neural_Network {
             for (int i = 0; i < layers.Count; i++) {
                 if (i == 0)
                     ((InputLayer2D)layers[i]).forwardPropagate(input);
-                if (layers[i] is DropoutLayer)
-                    ((DropoutLayer)layers[i]).forwardPropagateTest();
+                if (layers[i] is DropoutLayer1D)
+                    ((DropoutLayer1D)layers[i]).forwardPropagateTest();
                 else
                     layers[i].forwardPropagate();
             }
@@ -75,34 +75,24 @@ namespace Machine_Learning.Neural_Network {
             for (int i = 0; i < outputSize; i++)
                 error[i] = (answer == i ? 1 : -1);
 
-            for (int i = 0; i < layers.Count; i++) {
-                if (i == 0)
-                    ((InputLayer1D)layers[i]).forwardPropagate(input);
+            ((InputLayer1D)layers[0]).forwardPropagate(input);
+
+            for (int i = 0; i < layers.Count; i++)
                 layers[i].forwardPropagate();
+
+
+            double currCost = ((OutputLayer)layers[layers.Count - 1]).backPropagate(error);
+            totalCost += currCost;
+            costList.Enqueue(currCost);
+            if (maxIndex(layers[layers.Count - 1].neurons) == answer) {
+                correct++;
+                correctList.Enqueue(true);
+            } else {
+                correctList.Enqueue(false);
             }
 
-            for (int i = layers.Count - 1; i >= 0; i--) {
-                if (i == layers.Count - 1)
-                    ((OutputLayer)layers[i]).backPropagate(error);
-
+            for (int i = layers.Count - 1; i >= 0; i--)
                 layers[i].backPropagate(learningRate);
-                if (i == layers.Count - 1) {
-                    if (maxIndex(layers[i].neurons) == answer) {
-                        correct++;
-                        correctList.Enqueue(true);
-                    } else {
-                        correctList.Enqueue(false);
-                    }
-
-                    double cost = 0;
-                    for (int j = 0; j < outputSize; j++) {
-                        double currCost = layers[i].neurons[j].error * layers[i].neurons[j].error / (layers[i].neurons[j].getDerivative() + 1e-8F);
-                        cost += currCost * currCost;
-                    }
-                    totalCost += cost;
-                    costList.Enqueue(cost);
-                }
-            }
         }
 
         public void train (double[,,] input, int answer, double learningRate) {

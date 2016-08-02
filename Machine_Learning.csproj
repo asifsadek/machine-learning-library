@@ -43,7 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Neural_Network\ConvolutionalLayer.cs" />
-    <Compile Include="Neural_Network\DropoutLayer.cs" />
+    <Compile Include="Neural_Network\DropoutLayer2D.cs" />
+    <Compile Include="Neural_Network\DropoutLayer1D.cs" />
     <Compile Include="Neural_Network\FullyConnectedLayer.cs" />
     <Compile Include="Neural_Network\InputLayer1D.cs" />
     <Compile Include="Neural_Network\InputLayer2D.cs" />

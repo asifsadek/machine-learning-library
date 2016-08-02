@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace Machine_Learning.Neural_Network {
 
-    public class DropoutLayer : Layer {
+    public class DropoutLayer1D : Layer1D {
 
         static Random rand = new Random();
 
         // probability to keep neuron
         public double prob;
 
-        public DropoutLayer (double prob) {
+        public DropoutLayer1D (double prob) {
             this.prob = prob;
         }
 
-        public DropoutLayer (StreamReader reader, Layer prev) {
+        public DropoutLayer1D (StreamReader reader, Layer prev) {
             string[] data = reader.ReadLine().Split();
             this.prob = double.Parse(data[0]);
 
@@ -63,7 +63,7 @@ namespace Machine_Learning.Neural_Network {
 
         public override String ToString () {
             StringBuilder sb = new StringBuilder();
-            sb.Append(String.Format("{0}\n{1}", "Machine_Learning.DropoutLayer", prob));
+            sb.Append(String.Format("{0}\n{1}", this.GetType().FullName, prob));
             return sb.ToString();
         }
     }
