@@ -6,3 +6,4 @@ C:\Users\Jeffrey\Documents\Visual Studio 2015\Projects\Neural_Network\Machine_Le
 C:\Users\Jeffrey\Documents\Visual Studio 2015\Projects\Neural_Network\Machine_Learning\bin\Release\Machine_Learning.pdb
 C:\Users\Jeffrey\Documents\Visual Studio 2015\Projects\Neural_Network\Machine_Learning\obj\Release\Machine_Learning.dll
 C:\Users\Jeffrey\Documents\Visual Studio 2015\Projects\Neural_Network\Machine_Learning\obj\Release\Machine_Learning.pdb
+C:\Users\Jeffrey\Documents\Visual Studio 2015\Projects\Neural_Network\Machine_Learning\obj\Release\Machine_Learning.csprojResolveAssemblyReference.cache
