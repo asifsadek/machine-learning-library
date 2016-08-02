@@ -6,9 +6,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Machine_Learning {
+namespace Machine_Learning.Neural_Network {
 
     public class Network {
+
         public const int RELU = 0;
         public const int TANH = 1;
         public const int SIGMOID = 2;

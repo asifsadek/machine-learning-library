@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Machine_Learning {
+namespace Machine_Learning.Support_Vector_Machine {
+
     public abstract class Kernel {
+
         public int size;
 
         public abstract double[] getFeatures (double[] data);

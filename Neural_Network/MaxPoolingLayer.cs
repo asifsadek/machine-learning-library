@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Machine_Learning {
+namespace Machine_Learning.Neural_Network {
 
-    public class MeanPoolingLayer : PoolingLayer {
+    public class MaxPoolingLayer : PoolingLayer {
 
-        public MeanPoolingLayer (int kernelWidth, int kernelHeight) : base(kernelWidth, kernelHeight) { }
+        public MaxPoolingLayer (int kernelWidth, int kernelHeight) : base(kernelWidth, kernelHeight) { }
 
-        public MeanPoolingLayer (StreamReader reader, Layer prev) {
+        public MaxPoolingLayer (StreamReader reader, Layer prev) {
             string[] data = reader.ReadLine().Split();
             this.kernelWidth = int.Parse(data[0]);
             this.kernelHeight = int.Parse(data[1]);
@@ -50,10 +50,10 @@ namespace Machine_Learning {
         // depth = p.depth
         public override void forwardPropagate () {
             for (int i = 0; i < size; i++) {
-                double sum = 0;
+                double max = -1 << 30;
                 for (int j = 0; j < neurons[i].size; j++)
-                    sum += neurons[i].prev[j].activated;
-                neurons[i].val = neurons[i].activated = sum / kernelWidth / kernelHeight;
+                    max = Math.Max(max, neurons[i].prev[j].activated);
+                neurons[i].val = neurons[i].activated = max;
             }
         }
 
@@ -61,14 +61,15 @@ namespace Machine_Learning {
             for (int i = 0; i < size; i++) {
                 Debug.Assert(neurons[i].size == kernelHeight * kernelWidth);
                 for (int j = 0; j < neurons[i].size; j++)
-                    neurons[i].prev[j].error = neurons[i].error / kernelWidth / kernelWidth;
+                    if (neurons[i].prev[j].activated == neurons[i].activated)
+                        neurons[i].prev[j].error = neurons[i].error;
                 neurons[i].error = 0;
             }
         }
 
         public override String ToString () {
             StringBuilder sb = new StringBuilder();
-            sb.Append(String.Format("{0}\n{1} {2}", "Machine_Learning.MeanPoolingLayer", kernelHeight, kernelWidth));
+            sb.Append(String.Format("{0}\n{1} {2}", "Machine_Learning.MaxPoolingLayer", kernelHeight, kernelWidth));
             return sb.ToString();
         }
     }

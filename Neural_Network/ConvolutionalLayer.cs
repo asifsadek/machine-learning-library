@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Machine_Learning {
+namespace Machine_Learning.Neural_Network {
 
     public class ConvolutionalLayer : Layer2D {
 

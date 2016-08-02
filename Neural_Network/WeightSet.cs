@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Machine_Learning {
+namespace Machine_Learning.Neural_Network {
 
     public class WeightSet {
 
         // HACKY FOR NOW
-        public const double LAMBDA = 0.000001;
+        public const double LAMBDA = 0.0001;
         public const double L2_REGULARIZATION = 0.8;
         public const double L1_REGULARIZATION = 1 - L2_REGULARIZATION;
 

@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Machine_Learning {
+namespace Machine_Learning.Neural_Network {
+
     public class DropoutLayer : Layer {
+
         static Random rand = new Random();
 
         // probability to keep neuron

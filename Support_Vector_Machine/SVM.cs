@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Machine_Learning {
-    public class SupportVectorMachine {
+namespace Machine_Learning.Support_Vector_Machine {
+
+    public class SVM {
+
         public Kernel kernel;
         public int featureSize;
         public double[] weights;
         public double bias;
         public static Random rand = new Random();
 
-        public SupportVectorMachine (Kernel kernel) {
+        public SVM (Kernel kernel) {
             this.kernel = kernel;
             this.featureSize = kernel.size;
             this.weights = new double[featureSize];

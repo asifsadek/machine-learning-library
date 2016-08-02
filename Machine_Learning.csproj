@@ -42,24 +42,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConvolutionalLayer.cs" />
-    <Compile Include="DropoutLayer.cs" />
-    <Compile Include="FullyConnectedLayer.cs" />
-    <Compile Include="InputLayer1D.cs" />
-    <Compile Include="InputLayer2D.cs" />
-    <Compile Include="Kernel.cs" />
-    <Compile Include="Layer.cs" />
-    <Compile Include="Layer1D.cs" />
-    <Compile Include="Layer2D.cs" />
-    <Compile Include="MaxPoolingLayer.cs" />
-    <Compile Include="MeanPoolingLayer.cs" />
-    <Compile Include="Network.cs" />
-    <Compile Include="Neuron.cs" />
-    <Compile Include="OutputLayer.cs" />
-    <Compile Include="PoolingLayer.cs" />
+    <Compile Include="Neural_Network\ConvolutionalLayer.cs" />
+    <Compile Include="Neural_Network\DropoutLayer.cs" />
+    <Compile Include="Neural_Network\FullyConnectedLayer.cs" />
+    <Compile Include="Neural_Network\InputLayer1D.cs" />
+    <Compile Include="Neural_Network\InputLayer2D.cs" />
+    <Compile Include="Support_Vector_Machine\Kernel.cs" />
+    <Compile Include="Neural_Network\Layer.cs" />
+    <Compile Include="Neural_Network\Layer1D.cs" />
+    <Compile Include="Neural_Network\Layer2D.cs" />
+    <Compile Include="Neural_Network\MaxPoolingLayer.cs" />
+    <Compile Include="Neural_Network\MeanPoolingLayer.cs" />
+    <Compile Include="Neural_Network\Network.cs" />
+    <Compile Include="Neural_Network\Neuron.cs" />
+    <Compile Include="Neural_Network\OutputLayer.cs" />
+    <Compile Include="Neural_Network\PoolingLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SupportVectorMachine.cs" />
-    <Compile Include="WeightSet.cs" />
+    <Compile Include="Support_Vector_Machine\SVM.cs" />
+    <Compile Include="Neural_Network\WeightSet.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
