@@ -25,9 +25,10 @@ namespace Machine_Learning.Neural_Network {
             BindTo(ref prev);
 
             for (int i = 0; i < size; i++) {
-                neurons[i].weights.bias = double.Parse(reader.ReadLine());
+                string[] input = reader.ReadLine().Split();
+                neurons[i].weights.bias = double.Parse(input[0]);
                 for (int j = 0; j < neurons[i].weights.val.GetLength(0); j++)
-                    neurons[i].weights.val[j] = double.Parse(reader.ReadLine());
+                    neurons[i].weights.val[j] = double.Parse(input[j + 1]);
             }
         }
 
@@ -49,8 +50,11 @@ namespace Machine_Learning.Neural_Network {
             for (int i = 0; i < size; i++)
                 neurons[i].backPropagateError();
 
-            for (int i = 0; i < size; i++)
+
+            for (int i = 0; i < size; i++) {
+                neurons[i].backPropagateRegularize(learningRate);
                 neurons[i].backPropagateWeights(learningRate);
+            }
         }
 
         public double backPropagate (double[] error) {
@@ -68,7 +72,7 @@ namespace Machine_Learning.Neural_Network {
             for (int i = 0; i < size; i++) {
                 sb.Append("\n" + neurons[i].weights.bias);
                 for (int j = 0; j < neurons[i].weights.val.GetLength(0); j++)
-                    sb.Append("\n" + neurons[i].weights.val[j]);
+                    sb.Append(" " + neurons[i].weights.val[j]);
             }
             return sb.ToString();
         }

@@ -43,12 +43,19 @@ namespace Machine_Learning.Neural_Network {
                 prev[i].error += error * val[i];
         }
 
+        public void regularize (double learningRate) {
+            for (int i = 0; i < size; i++) {
+                double l2Gradient = val[i] * L2_REGULARIZATION;
+                double l1Gradient = (val[i] > 0 ? 1 : -1) * L1_REGULARIZATION;
+                val[i] -= learningRate * LAMBDA * (l1Gradient + l2Gradient);
+
+            }
+        }
+
         public void update (Neuron[] prev, double error, double learningRate) {
             for (int i = 0; i < size; i++) {
                 double errorGradient = prev[i].activated * error;
-                double l2Gradient = val[i] * L2_REGULARIZATION;
-                double l1Gradient = (val[i] > 0 ? 1 : -1) * L1_REGULARIZATION;
-                val[i] -= learningRate * (errorGradient + LAMBDA * (l1Gradient + l2Gradient));
+                val[i] -= learningRate * errorGradient;
             }
             bias -= error * learningRate;
         }

@@ -40,6 +40,10 @@ namespace Machine_Learning.Neural_Network {
             weights.updateError(prev, error);
         }
 
+        public void backPropagateRegularize (double learningRate) {
+            weights.regularize(learningRate);
+        }
+
         public void backPropagateWeights (double learningRate) {
             weights.update(prev, error, learningRate);
             error = 0;
