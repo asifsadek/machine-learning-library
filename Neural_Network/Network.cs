@@ -19,17 +19,23 @@ namespace Machine_Learning.Neural_Network {
         public double correct, total, totalCost, iterations;
         public Queue<bool> correctList;
         public Queue<double> costList;
+        public Queue<double[,,]> errorList;
+        public Queue<int> errorAns;
 
         public Network () {
             layers = new List<Layer>();
             correctList = new Queue<bool>();
             costList = new Queue<double>();
+            errorList = new Queue<double[,,]>();
+            errorAns = new Queue<int>();
         }
 
         public Network (string path) {
             layers = new List<Layer>();
             correctList = new Queue<bool>();
             costList = new Queue<double>();
+            errorList = new Queue<double[,,]>();
+            errorAns = new Queue<int>();
             load(path);
         }
 
@@ -95,7 +101,12 @@ namespace Machine_Learning.Neural_Network {
                 layers[i].backPropagate(learningRate);
         }
 
+        static Random rand = new Random();
+
         public void train (double[,,] input, int answer, double learningRate) {
+            while (errorList.Count > 0 && rand.NextDouble() < 0.1)
+               train(errorList.Dequeue(), errorAns.Dequeue(), learningRate);
+
             total++;
             iterations++;
 
@@ -119,6 +130,8 @@ namespace Machine_Learning.Neural_Network {
                 correctList.Enqueue(true);
             } else {
                 correctList.Enqueue(false);
+                errorList.Enqueue(input);
+                errorAns.Enqueue(answer);
             }
 
             for (int i = layers.Count - 1; i >= 0; i--)
