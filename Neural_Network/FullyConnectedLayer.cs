@@ -49,7 +49,7 @@ namespace Machine_Learning.Neural_Network {
 
         public override void backPropagate (double learningRate) {
             for (int i = 0; i < size; i++)
-                neurons[i].backPropagateError();
+                neurons[i].backPropagateError(false);
 
             for (int i = 0; i < size; i++) {
                 neurons[i].backPropagateRegularize(learningRate);

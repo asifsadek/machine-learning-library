@@ -14,6 +14,7 @@ namespace Machine_Learning.Neural_Network {
         public const int TANH = 1;
         public const int SIGMOID = 2;
         public const int LINEAR = 3;
+        public const int SOFTMAX = 4;
 
         public List<Layer> layers;
         public double correct, total, totalCost, iterations;
@@ -113,8 +114,9 @@ namespace Machine_Learning.Neural_Network {
             int outputSize = ((Layer1D)layers.Last()).size;
             double[] error = new double[outputSize];
 
+            // CHANGE HERE FOR SOFTMAX AND MSE
             for (int i = 0; i < outputSize; i++)
-                error[i] = (answer == i ? 1 : -1);
+                error[i] = (answer == i ? 1 : 0);
 
             ((InputLayer2D)layers[0]).forwardPropagate(input);
 
@@ -140,9 +142,12 @@ namespace Machine_Learning.Neural_Network {
 
         private int maxIndex (Neuron[] output) {
             int max = 0;
-            for (int i = 1; i < output.GetLength(0); i++)
+            double sum = output[0].activated;
+            for (int i = 1; i < output.GetLength(0); i++) {
                 if (output[i].activated > output[max].activated)
                     max = i;
+                sum += output[i].activated;
+            }
             return max;
         }
 

@@ -35,8 +35,9 @@ namespace Machine_Learning.Neural_Network {
             activate();
         }
 
-        public void backPropagateError () {
-            error *= getDerivative();
+        public void backPropagateError (bool isOutput) {
+            if (!isOutput)
+                error *= getDerivative();
             weights.updateError(prev, error);
         }
 
@@ -94,6 +95,14 @@ namespace Machine_Learning.Neural_Network {
             return 1;
         }
 
+        public double softmaxActivation (double val) {
+            return Math.Exp(val);
+        }
+
+        public double softmaxDerivative (double val) {
+            return 1;
+        }
+
         private void setActivation (int type) {
             if (type == Network.TANH) {
                 activation = tanhActivation;
@@ -107,6 +116,9 @@ namespace Machine_Learning.Neural_Network {
             } else if (type == Network.LINEAR) {
                 activation = linearActivation;
                 derivative = linearDerivative;
+            } else if (type == Network.SOFTMAX) {
+                activation = softmaxActivation;
+                derivative = softmaxDerivative;
             }
         }
     }

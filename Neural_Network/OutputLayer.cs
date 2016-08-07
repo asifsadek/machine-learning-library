@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Machine_Learning.Neural_Network {
-
     public class OutputLayer : Layer1D {
 
         public OutputLayer (int size, int type) {
+            if (type != Network.SIGMOID && type != Network.SOFTMAX)
+                throw new System.ArgumentException();
             this.size = size;
             this.type = type;
             this.neurons = new Neuron[size];
@@ -42,13 +43,26 @@ namespace Machine_Learning.Neural_Network {
         }
 
         public override void forwardPropagate () {
-            for (int i = 0; i < size; i++)
-                neurons[i].forwardPropagate();
+            if (type == Network.SIGMOID) {
+                for (int i = 0; i < size; i++)
+                    neurons[i].forwardPropagate();
+
+            } else if (type == Network.SOFTMAX) {
+                for (int i = 0; i < size; i++)
+                    neurons[i].forwardPropagate();
+
+                double sum = 0;
+                for (int i = 0; i < size; i++)
+                    sum += neurons[i].activated;
+
+                for (int i = 0; i < size; i++)
+                    neurons[i].activated /= sum;
+            }
         }
 
         public override void backPropagate (double learningRate) {
             for (int i = 0; i < size; i++)
-                neurons[i].backPropagateError();
+                neurons[i].backPropagateError(true);
 
 
             for (int i = 0; i < size; i++) {
@@ -59,10 +73,19 @@ namespace Machine_Learning.Neural_Network {
 
         public double backPropagate (double[] error) {
             double ret = 0;
-            for (int i = 0; i < size; i++) {
-                neurons[i].error = (neurons[i].activated - error[i]);
-                ret += neurons[i].error * neurons[i].error;
+
+            if (type == Network.SIGMOID) {
+                for (int i = 0; i < size; i++) {
+                    neurons[i].error = (neurons[i].activated - error[i]);
+                    ret -= error[i] * Math.Log(neurons[i].activated) + (1 - error[i]) * Math.Log(1 - neurons[i].activated);
+                }
+            } else if (type == Network.SOFTMAX) {
+                for (int i = 0; i < size; i++) {
+                    neurons[i].error = (neurons[i].activated - error[i]);
+                    ret -= error[i] * Math.Log(neurons[i].activated);
+                }
             }
+
             return ret;
         }
 
