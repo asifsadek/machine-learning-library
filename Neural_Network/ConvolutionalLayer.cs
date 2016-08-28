@@ -10,12 +10,14 @@ namespace Machine_Learning.Neural_Network {
     public class ConvolutionalLayer : Layer2D {
 
         WeightSet[] sharedWeights;
+        int padding;
 
-        public ConvolutionalLayer (int depth, int kernelWidth, int kernelHeight, int type) {
+        public ConvolutionalLayer (int depth, int kernelWidth, int kernelHeight, int type, int padding) {
             this.depth = depth;
             this.kernelWidth = kernelWidth;
             this.kernelHeight = kernelHeight;
             this.type = type;
+            this.padding = padding;
             this.sharedWeights = new WeightSet[depth];
         }
 
@@ -25,6 +27,7 @@ namespace Machine_Learning.Neural_Network {
             this.kernelWidth = int.Parse(data[1]);
             this.kernelHeight = int.Parse(data[2]);
             this.type = int.Parse(data[3]);
+            this.padding = int.Parse(data[4]);
             this.sharedWeights = new WeightSet[depth];
 
             BindTo(ref prev);
@@ -42,8 +45,8 @@ namespace Machine_Learning.Neural_Network {
             prevLayer = layer;
 
             Layer2D prev = (Layer2D)prevLayer;
-            this.width = prev.width - this.kernelWidth + 1;
-            this.height = prev.height - this.kernelHeight + 1;
+            this.width = prev.width - this.kernelWidth + 1 + 2 * padding;
+            this.height = prev.height - this.kernelHeight + 1 + 2 * padding;
             this.size = depth * width * height;
             this.neurons = new Neuron[size];
 
@@ -52,17 +55,21 @@ namespace Machine_Learning.Neural_Network {
 
                 for (int j = 0; j < width; j++) {
                     for (int k = 0; k < height; k++) {
-                        Neuron[] currPrev = new Neuron[prev.depth * kernelWidth * kernelHeight];
+                        if (j < padding || j >= width - padding || k < padding || k >= height - padding) {
+                            neurons[i * width * height + j * height + k] = new Neuron(0);
+                        } else {
+                            Neuron[] currPrev = new Neuron[prev.depth * kernelWidth * kernelHeight];
 
-                        for (int x = 0; x < prev.depth; x++)
-                            for (int y = 0; y < kernelWidth; y++)
-                                for (int z = 0; z < kernelHeight; z++) {
-                                    int prevIndex = x * prev.width * prev.height + (j + y) * prev.height + (k + z);
-                                    currPrev[x * kernelWidth * kernelHeight + y * kernelHeight + z] = prev.neurons[prevIndex];
-                                }
+                            for (int x = 0; x < prev.depth; x++)
+                                for (int y = 0; y < kernelWidth; y++)
+                                    for (int z = 0; z < kernelHeight; z++) {
+                                        int prevIndex = x * prev.width * prev.height + (j + y - padding) * prev.height + (k + z - padding);
+                                        currPrev[x * kernelWidth * kernelHeight + y * kernelHeight + z] = prev.neurons[prevIndex];
+                                    }
 
-                        neurons[i * width * height + j * height + k] = new Neuron(prev.depth * kernelWidth * kernelHeight, sharedWeights[i], this.type);
-                        neurons[i * width * height + j * height + k].link(currPrev);
+                            neurons[i * width * height + j * height + k] = new Neuron(prev.depth * kernelWidth * kernelHeight, sharedWeights[i], this.type);
+                            neurons[i * width * height + j * height + k].link(currPrev);
+                        }
                     }
                 }
             }
@@ -86,7 +93,7 @@ namespace Machine_Learning.Neural_Network {
 
         public override String ToString () {
             StringBuilder sb = new StringBuilder();
-            sb.Append(String.Format("{0}\n{1} {2} {3} {4}", this.GetType().FullName, depth, kernelHeight, kernelWidth, type));
+            sb.Append(String.Format("{0}\n{1} {2} {3} {4} {5}", this.GetType().FullName, depth, kernelHeight, kernelWidth, type, padding));
             for (int i = 0; i < depth; i++) {
                 sb.Append("\n" + sharedWeights[i].bias);
                 for (int j = 0; j < sharedWeights[i].val.GetLength(0); j++)

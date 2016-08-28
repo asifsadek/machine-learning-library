@@ -13,7 +13,6 @@ namespace Machine_Learning.Neural_Network {
         public const double L2_REGULARIZATION = 0.8;
         public const double L1_REGULARIZATION = 1 - L2_REGULARIZATION;
 
-
         public static Random rand = new Random();
 
         public double[] val;
@@ -32,6 +31,8 @@ namespace Machine_Learning.Neural_Network {
         }
 
         public double evaluate (Neuron[] prev) {
+            if (size == 0)
+                return 0;
             double ret = bias;
             for (int i = 0; i < size; i++)
                 ret += val[i] * prev[i].activated;
@@ -48,11 +49,12 @@ namespace Machine_Learning.Neural_Network {
                 double l2Gradient = val[i] * L2_REGULARIZATION;
                 double l1Gradient = (val[i] > 0 ? 1 : -1) * L1_REGULARIZATION;
                 val[i] -= learningRate * LAMBDA * (l1Gradient + l2Gradient);
-
             }
         }
 
         public void update (Neuron[] prev, double error, double learningRate) {
+            if (size == 0)
+                return;
             for (int i = 0; i < size; i++) {
                 double errorGradient = prev[i].activated * error;
                 val[i] -= learningRate * errorGradient;

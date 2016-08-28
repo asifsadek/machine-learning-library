@@ -9,7 +9,7 @@ namespace Machine_Learning.Neural_Network {
     public class OutputLayer : Layer1D {
 
         public OutputLayer (int size, int type) {
-            if (type != Network.SIGMOID && type != Network.SOFTMAX)
+            if (type != Network.SIGMOID && type != Network.SOFTMAX && type != Network.LINEAR)
                 throw new System.ArgumentException();
             this.size = size;
             this.type = type;
@@ -57,6 +57,9 @@ namespace Machine_Learning.Neural_Network {
 
                 for (int i = 0; i < size; i++)
                     neurons[i].activated /= sum;
+            } else if (type == Network.LINEAR) {
+                for (int i = 0; i < size; i++)
+                    neurons[i].forwardPropagate();
             }
         }
 
@@ -83,6 +86,11 @@ namespace Machine_Learning.Neural_Network {
                 for (int i = 0; i < size; i++) {
                     neurons[i].error = (neurons[i].activated - error[i]);
                     ret -= error[i] * Math.Log(neurons[i].activated);
+                }
+            } else if (type == Network.LINEAR) {
+                for (int i = 0; i < size; i++) {
+                    neurons[i].error = (neurons[i].activated - error[i]) * neurons[i].getDerivative();
+                    ret += (neurons[i].activated - error[i]) * (neurons[i].activated - error[i]);
                 }
             }
 
