@@ -24,6 +24,10 @@ namespace Machine_Learning.Neural_Network {
             prevLayer = layer;
 
             Layer2D prev = (Layer2D)prevLayer;
+
+            if (prev.width % this.kernelWidth != 0 || prev.height % this.kernelHeight != 0)
+                throw new ArgumentException();
+
             this.depth = prev.depth;
             this.width = prev.width / this.kernelWidth;
             this.height = prev.height / this.kernelHeight;

@@ -24,6 +24,10 @@ namespace Machine_Learning.Neural_Network {
             prevLayer = layer;
 
             Layer2D prev = (Layer2D)prevLayer;
+
+            if (prev.width % this.kernelWidth != 0 || prev.height % this.kernelHeight != 0)
+                throw new ArgumentException();
+
             this.depth = prev.depth;
             this.width = prev.width / this.kernelWidth;
             this.height = prev.height / this.kernelHeight;
@@ -50,9 +54,9 @@ namespace Machine_Learning.Neural_Network {
         // depth = p.depth
         public override void forwardPropagate () {
             for (int i = 0; i < size; i++) {
-                double max = -1 << 30;
+                double max = 0;
                 for (int j = 0; j < neurons[i].size; j++)
-                    max = Math.Max(max, neurons[i].prev[j].activated);
+                    max = Math.Max(Math.Abs(max), Math.Abs(neurons[i].prev[j].activated));
                 neurons[i].val = neurons[i].activated = max;
             }
         }

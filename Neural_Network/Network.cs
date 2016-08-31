@@ -105,7 +105,7 @@ namespace Machine_Learning.Neural_Network {
         static Random rand = new Random();
 
         public void train (double[,,] input, int answer, double learningRate) {
-           while (errorList.Count > 0 && rand.NextDouble() < 0.05)
+           while (errorList.Count > 0 && rand.NextDouble() < 0.0001 * errorList.Count)
                train(errorList.Dequeue(), errorAns.Dequeue(), learningRate);
 
             total++;
