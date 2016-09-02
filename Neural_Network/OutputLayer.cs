@@ -74,23 +74,23 @@ namespace Machine_Learning.Neural_Network {
             }
         }
 
-        public double backPropagate (double[] error) {
+        public double backPropagate (double[] expected) {
             double ret = 0;
 
             if (type == Network.SIGMOID) {
                 for (int i = 0; i < size; i++) {
-                    neurons[i].error = (neurons[i].activated - error[i]);
-                    ret -= error[i] * Math.Log(neurons[i].activated) + (1 - error[i]) * Math.Log(1 - neurons[i].activated);
+                    neurons[i].error = (neurons[i].activated - expected[i]);
+                    ret -= expected[i] * Math.Log(neurons[i].activated) + (1 - expected[i]) * Math.Log(1 - neurons[i].activated);
                 }
             } else if (type == Network.SOFTMAX) {
                 for (int i = 0; i < size; i++) {
-                    neurons[i].error = (neurons[i].activated - error[i]);
-                    ret -= error[i] * Math.Log(neurons[i].activated);
+                    neurons[i].error = (neurons[i].activated - expected[i]);
+                    ret -= expected[i] * Math.Log(neurons[i].activated);
                 }
             } else if (type == Network.LINEAR) {
                 for (int i = 0; i < size; i++) {
-                    neurons[i].error = (neurons[i].activated - error[i]) * neurons[i].getDerivative();
-                    ret += (neurons[i].activated - error[i]) * (neurons[i].activated - error[i]);
+                    neurons[i].error = (neurons[i].activated - expected[i]) * neurons[i].getDerivative();
+                    ret += (neurons[i].activated - expected[i]) * (neurons[i].activated - expected[i]) / 2;
                 }
             }
 
