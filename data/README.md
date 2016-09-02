@@ -1,7 +1,7 @@
 # Samples
 ## Convolution Neural Network for MNIST ("mnist_weight.txt")
 ### Summary
-Achieves 99.95% accuracy on <a href="https://www.kaggle.com/c/digit-recognizer">Kaggle</a>.
+Achieves 99.95% accuracy on <a href="https://www.kaggle.com/c/digit-recognizer">Kaggle</a>. Trained with 1,197,766 iterations of stocastic gradient descent.
 ### Structure:
 | Layer type       | Parameters                                |
 |------------------|-------------------------------------------|
@@ -21,3 +21,5 @@ Achieves 99.95% accuracy on <a href="https://www.kaggle.com/c/digit-recognizer">
 | fully connected  | size: 256                                 |
 | dropout          | probability: 0.5                          |
 | softmax          | size: 10                                  |
+
+### Hyperparameters:
