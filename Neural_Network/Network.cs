@@ -73,14 +73,18 @@ namespace Machine_Learning.Neural_Network {
         }
 
         public void train (double[] input, int answer, double learningRate) {
+            while (errorList.Count > 0 && rand.NextDouble() < 0.0001 * errorList.Count)
+                train(errorList.Dequeue(), errorAns.Dequeue(), learningRate);
+
             total++;
             iterations++;
 
             int outputSize = ((Layer1D)layers.Last()).size;
-            double[] error = new double[outputSize];
+            double[] expected = new double[outputSize];
 
+            // CHANGE HERE FOR SOFTMAX AND MSE
             for (int i = 0; i < outputSize; i++)
-                error[i] = (answer == i ? 1 : -1);
+                expected[i] = (answer == i ? 1 : 0);
 
             ((InputLayer1D)layers[0]).forwardPropagate(input);
 
@@ -88,7 +92,7 @@ namespace Machine_Learning.Neural_Network {
                 layers[i].forwardPropagate();
 
 
-            double currCost = ((OutputLayer)layers[layers.Count - 1]).backPropagate(error);
+            double currCost = ((OutputLayer)layers[layers.Count - 1]).backPropagate(expected);
             totalCost += currCost;
             costList.Enqueue(currCost);
             if (maxIndex(layers[layers.Count - 1].neurons) == answer) {
@@ -96,6 +100,8 @@ namespace Machine_Learning.Neural_Network {
                 correctList.Enqueue(true);
             } else {
                 correctList.Enqueue(false);
+                //errorList.Enqueue(input);
+                //errorAns.Enqueue(answer);
             }
 
             for (int i = layers.Count - 1; i >= 0; i--)
@@ -105,8 +111,8 @@ namespace Machine_Learning.Neural_Network {
         static Random rand = new Random();
 
         public void train (double[,,] input, int answer, double learningRate) {
-           while (errorList.Count > 0 && rand.NextDouble() < 0.0001 * errorList.Count)
-               train(errorList.Dequeue(), errorAns.Dequeue(), learningRate);
+            while (errorList.Count > 0 && rand.NextDouble() < 0.00005 * errorList.Count)
+                train(errorList.Dequeue(), errorAns.Dequeue(), learningRate);
 
             total++;
             iterations++;
