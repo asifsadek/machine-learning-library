@@ -60,6 +60,22 @@ namespace Machine_Learning.Neural_Network {
             return maxIndex(layers.Last().neurons);
         }
 
+        public double[] getProbabilities (double[,,] input) {
+            for (int i = 0; i < layers.Count; i++) {
+                if (i == 0)
+                    ((InputLayer2D)layers[i]).forwardPropagate(input);
+                if (layers[i] is DropoutLayer1D)
+                    ((DropoutLayer1D)layers[i]).forwardPropagateTest();
+                else
+                    layers[i].forwardPropagate();
+            }
+
+            double[] ret = new double[10];
+            for (int i = 0; i < 10; i++)
+                ret[i] = layers.Last().neurons[i].activated;
+            return ret;
+        }
+
         public int predict (double[,,] input) {
             for (int i = 0; i < layers.Count; i++) {
                 if (i == 0)
@@ -111,8 +127,8 @@ namespace Machine_Learning.Neural_Network {
         static Random rand = new Random();
 
         public void train (double[,,] input, int answer, double learningRate) {
-            while (errorList.Count > 0 && rand.NextDouble() < 0.00005 * errorList.Count)
-                train(errorList.Dequeue(), errorAns.Dequeue(), learningRate);
+            //while (errorList.Count > 0 && rand.NextDouble() < 0.00005 * errorList.Count)
+            //    train(errorList.Dequeue(), errorAns.Dequeue(), learningRate);
 
             total++;
             iterations++;
@@ -138,8 +154,8 @@ namespace Machine_Learning.Neural_Network {
                 correctList.Enqueue(true);
             } else {
                 correctList.Enqueue(false);
-                errorList.Enqueue(input);
-                errorAns.Enqueue(answer);
+                //errorList.Enqueue(input);
+                //errorAns.Enqueue(answer);
             }
 
             for (int i = layers.Count - 1; i >= 0; i--)
