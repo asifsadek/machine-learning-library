@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Machine_Learning.Autoencoder {
     public class Neuron {
-        public const double SPARSITY_ESTIMATION = 0.999;
 
         public Neuron[] prev;
         public WeightSet weights;
@@ -33,16 +32,12 @@ namespace Machine_Learning.Autoencoder {
         public void forwardPropagate () {
             val = weights.evaluate(prev);
             activate();
-            sparsity = SPARSITY_ESTIMATION * sparsity + (1 - SPARSITY_ESTIMATION) * activated;
+            sparsity = Autoencoder.SPARSITY_ESTIMATION * sparsity + (1 - Autoencoder.SPARSITY_ESTIMATION) * activated;
         }
 
         public void backPropagateError (bool isOutput) {
-            if (!isOutput) {
-                double b = Autoencoder.SPARSITY_COST;
-                double p = Autoencoder.SPARSITY_TARGET;
-                double sparsityGrad = b * (-p / sparsity + (1 - p) / (1 - sparsity));
-                error = (error + sparsityGrad) * getDerivative();
-            }
+            if (!isOutput)
+                error = error * getDerivative();
             weights.updateError(prev, error);
         }
 
@@ -50,8 +45,8 @@ namespace Machine_Learning.Autoencoder {
             weights.regularize(learningRate);
         }
 
-        public void backPropagateWeights (double learningRate) {
-            weights.update(prev, error, learningRate);
+        public void backPropagateWeights (bool isOutput, double learningRate) {
+            weights.update(prev, error, sparsity, isOutput, learningRate);
             error = 0;
         }
 

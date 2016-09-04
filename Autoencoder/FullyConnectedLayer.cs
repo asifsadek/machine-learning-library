@@ -48,7 +48,7 @@ namespace Machine_Learning.Autoencoder {
 
             for (int i = 0; i < size; i++) {
                 neurons[i].backPropagateRegularize(learningRate);
-                neurons[i].backPropagateWeights(learningRate);
+                neurons[i].backPropagateWeights(false, learningRate);
             }
         }
 

@@ -51,7 +51,7 @@ namespace Machine_Learning.Autoencoder {
             }
         }
 
-        public void update (Neuron[] prev, double error, double learningRate) {
+        public void update (Neuron[] prev, double error, double sparsity, bool isOutput, double learningRate) {
             if (size == 0)
                 return;
             for (int i = 0; i < size; i++) {
@@ -59,6 +59,8 @@ namespace Machine_Learning.Autoencoder {
                 val[i] -= learningRate * errorGradient;
             }
             bias -= error * learningRate;
+            if (!isOutput)
+                bias -= learningRate * Autoencoder.SPARSITY_COST * (sparsity - Autoencoder.SPARSITY_TARGET);
         }
 
         private double GetRandomGaussian (double stdDev) {

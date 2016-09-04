@@ -50,7 +50,7 @@ namespace Machine_Learning.Autoencoder {
 
             for (int i = 0; i < size; i++) {
                 neurons[i].backPropagateRegularize(learningRate);
-                neurons[i].backPropagateWeights(learningRate);
+                neurons[i].backPropagateWeights(true, learningRate);
             }
         }
 
@@ -62,13 +62,6 @@ namespace Machine_Learning.Autoencoder {
                 ret += (neurons[i].activated - expected[i]) * (neurons[i].activated - expected[i]) / 2;
             }
 
-            // iterating through the previous layer
-            double b = Autoencoder.SPARSITY_COST;
-            double p = Autoencoder.SPARSITY_TARGET;
-            for (int i = 0; i < prevLayer.size; i++) {
-                ret += b * (p * Math.Log(p / prevLayer.neurons[i].sparsity));
-                ret += b * ((1 - p) * Math.Log((1 - p) / (1 - prevLayer.neurons[i].sparsity)));
-            }
             return ret;
         }
 

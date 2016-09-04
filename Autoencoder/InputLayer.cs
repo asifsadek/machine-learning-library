@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Machine_Learning.Autoencoder {
     public class InputLayer : Layer {
+        static Random rnd = new Random();
+
         public InputLayer (int size) {
             this.size = size;
             this.neurons = new Neuron[size];
@@ -42,8 +44,9 @@ namespace Machine_Learning.Autoencoder {
 
         // input layer has nothing to forward propagate
         public override void forwardPropagate () {
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < size; i++) {
                 neurons[i].activated = neurons[i].val;
+            }
         }
 
         // back propagation ends at the input layer

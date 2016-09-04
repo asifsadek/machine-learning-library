@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -8,8 +10,9 @@ using System.Threading.Tasks;
 
 namespace Machine_Learning.Autoencoder {
     public class Autoencoder {
-        public const double SPARSITY_COST = 0.01;
+        public const double SPARSITY_COST = 0.00;
         public const double SPARSITY_TARGET = 0.05;
+        public const double SPARSITY_ESTIMATION = 0.999;
 
         static Random rand = new Random();
 
@@ -69,6 +72,36 @@ namespace Machine_Learning.Autoencoder {
                 layers[i].backPropagate(learningRate);
         }
 
+        public List<Bitmap> getImages () {
+            List<Bitmap> ret = new List<Bitmap>();
+
+            for (int i = 0; i < layers[1].size; i++) {
+                double sum = 0;
+                for (int j = 0; j < layers[0].size; j++) {
+                    sum += layers[1].neurons[i].weights.val[j] * layers[1].neurons[i].weights.val[j];
+                }
+                sum = Math.Sqrt(sum);
+                double max = -1 << 30;
+                double min =  1 << 30;
+                Bitmap currImage = new Bitmap(28, 28);
+                for (int j = 0; j < layers[0].size; j++) {
+                    double currValue = layers[1].neurons[i].weights.val[j] / sum;
+                    max = Math.Max(max, currValue);
+                    min = Math.Min(min, currValue);
+                }
+                for (int j = 0; j < layers[0].size; j++) {
+                    double currValue1 = layers[1].neurons[i].weights.val[j] / sum - min;
+                    double currValue = currValue1 / (max - min) * 255;
+                    Debug.Assert(0 <= currValue && currValue <= 255);
+                    byte[] b = new byte[] { (byte)currValue, (byte)currValue, (byte)currValue, 255 };
+                    currImage.SetPixel(j / 28, j % 28, Color.FromArgb(BitConverter.ToInt32(b, 0)));
+                }
+
+                ret.Add(currImage);
+            }
+       
+            return ret;
+        }
 
         public void save (string filepath) {
             using (StreamWriter writer = new StreamWriter(filepath)) {
