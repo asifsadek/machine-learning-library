@@ -52,3 +52,6 @@ Achieves a loss of 0.816 using mean squared error. Trained with 4,175,335 iterat
 | L2 Regularization       | 0.8               |
 | L1 Regulatization       | 0.2               |
 | Error Queue Probability | 0.0001 * size     |
+
+## Visualization:
+![Autoencoder Visualization](https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/autoencoder_visualization.png)
