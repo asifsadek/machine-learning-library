@@ -47,7 +47,6 @@
     <Compile Include="Autoencoder\InputLayer.cs" />
     <Compile Include="Autoencoder\Layer.cs" />
     <Compile Include="Autoencoder\Neuron.cs" />
-    <Compile Include="Autoencoder\OutputLayer.cs" />
     <Compile Include="Autoencoder\WeightSet.cs" />
     <Compile Include="Neural_Network\ConvolutionalLayer.cs" />
     <Compile Include="Neural_Network\DropoutLayer2D.cs" />
