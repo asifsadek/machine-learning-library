@@ -11,9 +11,10 @@ namespace Machine_Learning.Autoencoder {
         public Neuron[] neurons;
 
         public abstract void BindTo (ref Layer layer);
+        public abstract void RebindTo (ref Layer layer);
 
         public abstract void forwardPropagate ();
 
-        public abstract void backPropagate (double learningRate);
+        public abstract void backPropagate (double learningRate, bool isCurrentEncoder);
     }
 }

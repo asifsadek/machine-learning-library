@@ -35,11 +35,15 @@ namespace Machine_Learning.Autoencoder {
             prevLayer = null;
         }
 
+        // input layers will never have a previous layer
+        public override void RebindTo (ref Layer layer) {
+            prevLayer = null;
+        }
+
         public void forwardPropagate (double[] val) {
             Debug.Assert(size == val.GetLength(0));
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++)
                 neurons[i].val = val[i];
-            }
         }
 
         // input layer has nothing to forward propagate
@@ -50,7 +54,7 @@ namespace Machine_Learning.Autoencoder {
         }
 
         // back propagation ends at the input layer
-        public override void backPropagate (double learningRate) { }
+        public override void backPropagate (double learningRate, bool isCurrentEncoder) { }
 
         public override String ToString () {
             StringBuilder sb = new StringBuilder();

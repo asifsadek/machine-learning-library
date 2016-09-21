@@ -37,19 +37,37 @@ namespace Machine_Learning.Autoencoder {
             }
         }
 
+        public override void RebindTo (ref Layer layer) {
+            prevLayer = layer;
+            for (int i = 0; i < size; i++)
+                for (int j = 0; j < neurons[i].size; j++)
+                    neurons[i].prev[j] = prevLayer.neurons[j];
+        }
+
         public override void forwardPropagate () {
             for (int i = 0; i < size; i++)
                 neurons[i].forwardPropagate();
         }
 
-        public override void backPropagate (double learningRate) {
+        public override void backPropagate (double learningRate, bool isCurrentEncoder) {
             for (int i = 0; i < size; i++)
-                neurons[i].backPropagateError(false);
+                neurons[i].backPropagateError();
 
             for (int i = 0; i < size; i++) {
                 neurons[i].backPropagateRegularize(learningRate);
-                neurons[i].backPropagateWeights(false, learningRate);
+                neurons[i].backPropagateWeights(isCurrentEncoder, learningRate);
             }
+        }
+
+        public double backPropagate (double[] expected) {
+            double ret = 0;
+
+            for (int i = 0; i < size; i++) {
+                neurons[i].error = (neurons[i].activated - expected[i]) * neurons[i].getDerivative();
+                ret += (neurons[i].activated - expected[i]) * (neurons[i].activated - expected[i]) / 2;
+            }
+
+            return ret;
         }
 
         public override String ToString () {

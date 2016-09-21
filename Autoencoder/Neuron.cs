@@ -17,6 +17,7 @@ namespace Machine_Learning.Autoencoder {
 
         public Neuron (int size) {
             this.size = size;
+            this.sparsity = Autoencoder.SPARSITY_TARGET;
             this.prev = new Neuron[size];
             this.weights = new WeightSet(size);
             this.setActivation();
@@ -24,6 +25,7 @@ namespace Machine_Learning.Autoencoder {
 
         public Neuron (int size, WeightSet weights) {
             this.size = size;
+            this.sparsity = Autoencoder.SPARSITY_TARGET;
             this.prev = new Neuron[size];
             this.weights = weights;
             this.setActivation();
@@ -35,9 +37,8 @@ namespace Machine_Learning.Autoencoder {
             sparsity = Autoencoder.SPARSITY_ESTIMATION * sparsity + (1 - Autoencoder.SPARSITY_ESTIMATION) * activated;
         }
 
-        public void backPropagateError (bool isOutput) {
-            if (!isOutput)
-                error = error * getDerivative();
+        public void backPropagateError () {
+            error = error * getDerivative();
             weights.updateError(prev, error);
         }
 
@@ -45,8 +46,8 @@ namespace Machine_Learning.Autoencoder {
             weights.regularize(learningRate);
         }
 
-        public void backPropagateWeights (bool isOutput, double learningRate) {
-            weights.update(prev, error, sparsity, isOutput, learningRate);
+        public void backPropagateWeights (bool isCurrentEncoder, double learningRate) {
+            weights.update(prev, error, sparsity, isCurrentEncoder, learningRate);
             error = 0;
         }
 
