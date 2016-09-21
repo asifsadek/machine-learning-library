@@ -127,8 +127,8 @@ namespace Machine_Learning.Neural_Network {
         static Random rand = new Random();
 
         public void train (double[,,] input, int answer, double learningRate) {
-            while (errorList.Count > 0 && rand.NextDouble() < 0.00005 * errorList.Count)
-                train(errorList.Dequeue(), errorAns.Dequeue(), learningRate);
+            //while (errorList.Count > 0 && rand.NextDouble() < 0.00005 * errorList.Count)
+            //    train(errorList.Dequeue(), errorAns.Dequeue(), learningRate);
 
             total++;
             iterations++;
@@ -154,8 +154,8 @@ namespace Machine_Learning.Neural_Network {
                 correctList.Enqueue(true);
             } else {
                 correctList.Enqueue(false);
-                errorList.Enqueue(input);
-                errorAns.Enqueue(answer);
+                //errorList.Enqueue(input);
+                //errorAns.Enqueue(answer);
             }
 
             for (int i = layers.Count - 1; i >= 0; i--)

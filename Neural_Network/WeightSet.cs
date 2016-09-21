@@ -9,20 +9,23 @@ namespace Machine_Learning.Neural_Network {
     public class WeightSet {
 
         // HACKY FOR NOW
-        public const double LAMBDA = 0.0005;
+        public const double LAMBDA = 0;
         public const double L2_REGULARIZATION = 0.8;
         public const double L1_REGULARIZATION = 1 - L2_REGULARIZATION;
+        public const double VELOCITY = 0.0;
 
         public static Random rand = new Random();
 
-        public double[] val;
-        public double bias;
+        public double[] val, valVelocity;
+        public double bias, biasVelocity;
         public int size;
 
         public WeightSet (int size) {
             this.size = size;
             this.val = new double[size];
+            this.valVelocity = new double[size];
             this.bias = 0;
+            this.biasVelocity = 0;
 
             double range = (1 / Math.Sqrt(size));
 
@@ -57,9 +60,11 @@ namespace Machine_Learning.Neural_Network {
                 return;
             for (int i = 0; i < size; i++) {
                 double errorGradient = prev[i].activated * error;
-                val[i] -= learningRate * errorGradient;
+                valVelocity[i] = valVelocity[i] * VELOCITY + learningRate * errorGradient;
+                val[i] -= valVelocity[i];
             }
-            bias -= error * learningRate;
+            biasVelocity = biasVelocity * VELOCITY + learningRate * error;
+            bias -= biasVelocity;
         }
 
         private double GetRandomGaussian (double stdDev) {
