@@ -53,7 +53,7 @@ Achieves a loss of 0.816 using mean squared error. Trained with 4,175,335 iterat
 | L1 Regulatization       | 0.2               |
 
 ## Visualization:
-![Autoencoder Visualization](https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/autoencoder_visualization.png)
+<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/autoencoder_visualization.png" height="500"/>
 
 ## Stacked Autoencoder for MNIST ("mnist_stacked_autoencoder_weights.txt")
 Achieves a loss of 26.91 using mean squared error.
@@ -83,3 +83,11 @@ Achieves a loss of 26.91 using mean squared error.
 | Regularization Cost     | 0.0001            |
 | L2 Regularization       | 0.8               |
 | L1 Regulatization       | 0.2               |
+
+## Visualization:
+<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer1.png" height="500"/>
+<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer2.png" height="500"/>
+<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer3.png" height="500"/>
+<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer4.png" height="500"/>
+<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer5.png" height="500"/>
+<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/mnist_2d_distribution.png" height="500"/>
