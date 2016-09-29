@@ -33,7 +33,7 @@ Achieves 99.95% accuracy on <a href="https://www.kaggle.com/c/digit-recognizer">
 | Error Queue Probability | 0.0001 * size     |
 
 
-## Single Layer Autoencoder for mnist ("mnist_autoencoder_weight.txt")
+## Single Layer Autoencoder for MNIST ("mnist_autoencoder_weight.txt")
 Achieves a loss of 0.816 using mean squared error. Trained with 4,175,335 iterations of stocastic gradient descent (batch size of one).
 
 ### Structure:
@@ -51,7 +51,35 @@ Achieves a loss of 0.816 using mean squared error. Trained with 4,175,335 iterat
 | Regularization Cost     | 0.0001            |
 | L2 Regularization       | 0.8               |
 | L1 Regulatization       | 0.2               |
-| Error Queue Probability | 0.0001 * size     |
 
 ## Visualization:
 ![Autoencoder Visualization](https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/autoencoder_visualization.png)
+
+## Stacked Autoencoder for MNIST ("mnist_stacked_autoencoder_weights.txt")
+Achieves a loss of 26.91 using mean squared error.
+
+### Structure:
+| Layer type       | Parameters                                |
+|------------------|-------------------------------------------|
+| input            | size: 784                                 |
+| fully connected  | size: 500                                 |
+| fully connected  | size: 100                                 |
+| fully connected  | size: 20                                  |
+| fully connected  | size: 10                                  |
+| fully connected  | size: 5                                   |
+| fully connected  | size: 2                                   |
+| fully connected  | size: 5                                   |
+| fully connected  | size: 10                                  |
+| fully connected  | size: 20                                  |
+| fully connected  | size: 100                                 |
+| fully connected  | size: 500                                 |
+| fully connected  | size: 784                                 |
+
+### Hyperparameters:
+| Parameter               | Value             |
+|-------------------------|-------------------|
+| Initial Training Rate   | 0.1               |
+| Halving Rate            | 60,000 iterations |
+| Regularization Cost     | 0.0001            |
+| L2 Regularization       | 0.8               |
+| L1 Regulatization       | 0.2               |
