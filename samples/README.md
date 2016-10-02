@@ -85,9 +85,9 @@ Achieves a loss of 26.91 using mean squared error.
 | L1 Regulatization       | 0.2               |
 
 ## Visualization:
-<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer1.png" height="500"/>
-<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer2.png" height="500"/>
-<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer3.png" height="500"/>
-<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer4.png" height="500"/>
-<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer5.png" height="500"/>
-<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/mnist_2d_distribution.png" height="500"/>
+<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer1.png" height="300"/>
+<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer2.png" height="300"/>
+<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer3.png" height="300"/>
+<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer4.png" height="300"/>
+<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/layer5.png" height="300"/>
+<img src="https://raw.githubusercontent.com/jeffrey-xiao/Machine-Learning-Library/master/img/mnist_2d_distribution.png" height="300"/>
